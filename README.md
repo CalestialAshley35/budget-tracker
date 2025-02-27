@@ -1,134 +1,157 @@
-# Budget Tracker CLI Application
+# Advanced Budget Tracker CLI (v2.0.0)
 
-A powerful command-line interface (CLI) tool for personal finance management, built with Dart. Track income, expenses, and get real-time financial insights with persistent storage capabilities.
+A feature-rich command-line budget tracking application with financial reporting, category management, and CSV import/export capabilities.
 
-## 📌 Features
+## Features
 
-- **Dual Transaction Tracking**
-  - Record both income and expenses
-  - Automatic balance calculation
+- **Transaction Management**
+  - Add income/expense transactions with descriptions, amounts, and categories
+  - Edit existing transactions
+  - Delete transactions
+  - View transaction history with filtering
 - **Financial Insights**
-  - Real-time summary statistics
-  - Detailed transaction history
-- **Data Persistence**
-  - Local file storage (`transactions.txt`)
-  - Cross-session data preservation
-- **User-Friendly Interface**
-  - Interactive console menu
-  - Clear financial reporting
-- **Platform Agnostic**
-  - Runs anywhere Dart is supported
+  - Real-time balance calculation
+  - Income/expense breakdown by category
+  - Custom date range filtering
+  - Comprehensive financial reports
+- **Data Management**
+  - CSV import/export functionality
+  - Custom category management
+  - Persistent data handling
+- **Advanced Functionality**
+  - UUID-based transaction identification
+  - Localized currency formatting
+  - Date parsing with validation
+  - Type-safe transaction handling
 
-## 🚀 Installation
+## Installation
 
-### Prerequisites
-- Dart SDK (version 3.0+)
+1. **Install Dart SDK** (version 2.18+)
+   ```bash
+   sudo apt-get install dart
+   ```
+2. **Download Application**
+   ```bash
+   wget https://github.com/CalestialAshley35/budget-tracker/raw/main/src/budget_tracker.dart
+   ```
+3. **Install Dependencies**
+   ```bash
+   dart pub add intl uuid
+   ```
 
-**Install Dart:**
+## Usage
+
 ```bash
-# For Debian/Ubuntu
-sudo apt-get install dart
-
-# For macOS
-brew tap dart-lang/dart
-brew install dart
-
-# For Windows (via Chocolatey)
-choco install dart-sdk
-```
-
-### Application Setup
-```bash
-wget https://github.com/CalestialAshley35/budget-tracker/blob/main/src/budget_tracker.dart
 dart run budget_tracker.dart
 ```
 
-## 🖥 Usage
+### Main Menu Options
 
+| Option | Action                      | Description                                  |
+|--------|-----------------------------|----------------------------------------------|
+| 1      | Add Transaction             | Create new income/expense entry             |
+| 2      | Edit Transaction            | Modify existing transaction                 |
+| 3      | Delete Transaction          | Remove transaction by ID                    |
+| 4      | View Summary                | Display current financial status            |
+| 5      | List Transactions           | Show all recorded transactions              |
+| 6      | Manage Categories           | Add/remove spending categories              |
+| 7      | Generate Report             | Create detailed financial breakdown         |
+| 8      | Export Data                 | Save transactions to CSV file               |
+| 9      | Import Data                 | Load transactions from CSV file             |
+| 10     | Exit                        | Quit application                            |
+
+## Transaction Management
+
+### Adding a Transaction
 ```text
-=== Budget Tracker ===
-1. Add Income
-2. Add Expense
-3. View Summary
-4. View Transactions
-5. Save Transactions
-6. Load Transactions
-7. Exit
+1. Select transaction type (Income/Expense)
+2. Enter description
+3. Input amount (supports decimal values)
+4. Choose from existing categories or create new
+5. Specify date or use current date
 ```
 
-### Key Operations
-
-1. **Add Transaction**
-   ```bash
-   # Income Example:
-   Enter income description: Freelance Project
-   Enter income amount: $1500
-  
-   # Expense Example:
-   Enter expense description: Groceries
-   Enter expense amount: $87.50
-   ```
-
-2. **Financial Summary**
-   ```text
-   === Budget Summary ===
-   Total Income: $2500.00
-   Total Expenses: $987.50
-   Current Balance: $1512.50
-   ```
-
-3. **Transaction History**
-   ```text
-   Income: Freelance Project - $1500.00
-   Expense: Groceries - $87.50
-   Income: Salary - $1000.00
-   ```
-
-4. **Data Management**
-   - Automatic file creation on save
-   - Persistent storage between sessions
-   - Human-readable text format
-
-## 📁 File Storage
-
-Transactions are stored in `transactions.txt` using this format:
+### Example Workflow
 ```text
-Income: Freelance Project - $1500.00
-Expense: Groceries - $87.50
+=== Advanced Budget Tracker ===
+1. Add Transaction
+[...]
+Enter choice: 1
+
+Income or Expense? (I/E): E
+Description: Groceries
+Amount: 74.50
+Date (YYYY-MM-DD): 2023-08-15
+[Category selection menu...]
+Transaction added successfully.
 ```
 
-### Manual Editing Tips:
-1. Maintain exact format for data integrity
-2. Use USD currency format
-3. One transaction per line
-4. Capitalize transaction types
+## Data Management
 
-## 🛠 Technical Considerations
+### CSV Format
+```csv
+id,description,amount,date,category,type
+d6b6f...,Groceries,74.50,2023-08-15T00:00:00.000Z,Food,TransactionType.expense
+```
 
-- **Data Validation**
-  - Ensure numeric input for amounts
-  - Handle empty descriptions gracefully
-- **Error Handling**
-  - File I/O error prevention
-  - Corrupted data fallbacks
-- **Performance**
-  - O(n) complexity for financial calculations
-  - Linear time file operations
+**Export Command**
+```bash
+Enter filename to export: transactions.csv
+Data exported successfully to transactions.csv
+```
 
-## 🤝 Contributing
+**Import Notes**
+- Clears existing transactions before import
+- Requires strict CSV format matching
+- Preserves original transaction IDs
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/improvement`)
-3. Commit changes (`git commit -am 'Add new feature'`)
-4. Push to branch (`git push origin feature/improvement`)
-5. Open Pull Request
+## Financial Reporting
 
-## 📜 License
+**Sample Report Output**
+```text
+Financial Report
+----------------
+Total Income: $5,000.00
+Total Expenses: $3,450.00
+Net Balance: $1,550.00
 
-© 2023 CalestialAshley35. Licensed under the [MIT License](LICENSE).
+Income Breakdown:
+ - Salary: $5,000.00
 
-## 🌟 Acknowledgements
+Expense Breakdown:
+ - Food: $850.00
+ - Rent: $2,500.00
+ - Utilities: $100.00
+```
 
-- Dart programming language community
-- CLI application enthusiasts
-- Open-source contributors
+## Configuration
+
+### Category Management
+- Default categories: Food, Utilities, Rent, Salary, Other
+- Add unlimited custom categories
+- Category-safe removal (prevents data corruption)
+
+### Localization Settings
+- Automatic currency formatting based on system locale
+- Custom date formatting (ISO 8601 compliant)
+
+## Known Limitations
+
+- CSV import doesn't handle escaped commas in descriptions
+- No native data persistence between sessions (use export/import)
+- Limited to single currency handling
+
+## Contributing
+
+1. Fork repository
+2. Create feature branch
+3. Submit pull request
+4. Follow Dart style guidelines
+
+```bash
+dart analyze
+dart format .
+```
+
+**Report Issues**  
+GitHub Issues Tracker
